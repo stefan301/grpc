@@ -1743,6 +1743,7 @@ add_library(grpc
   src/core/lib/slice/slice_buffer.cc
   src/core/lib/slice/slice_intern.cc
   src/core/lib/slice/slice_string_helpers.cc
+  src/core/lib/surface/allocate_global_statics.cc
   src/core/lib/surface/api_trace.cc
   src/core/lib/surface/byte_buffer.cc
   src/core/lib/surface/byte_buffer_reader.cc

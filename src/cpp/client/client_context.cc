@@ -31,6 +31,8 @@
 #include <grpcpp/server_context.h>
 #include <grpcpp/support/time.h>
 
+#include "src/core/lib/surface/allocate_global_statics.h"
+
 namespace grpc_impl {
 
 class Channel;
@@ -45,7 +47,7 @@ class DefaultGlobalClientCallbacks final
 
 static grpc::internal::GrpcLibraryInitializer g_gli_initializer;
 static DefaultGlobalClientCallbacks* g_default_client_callbacks =
-    new DefaultGlobalClientCallbacks();
+    grpc_core::new_global_static<DefaultGlobalClientCallbacks>();
 static ClientContext::GlobalCallbacks* g_client_callbacks =
     g_default_client_callbacks;
 

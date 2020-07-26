@@ -32,6 +32,7 @@
 #include "src/core/lib/channel/channel_args.h"
 #include "src/core/lib/surface/api_trace.h"
 #include "src/core/lib/surface/channel.h"
+#include "src/core/lib/surface/allocate_global_statics.h"
 
 namespace grpc_core {
 
@@ -78,7 +79,7 @@ grpc_core::Chttp2InsecureClientChannelFactory* g_factory;
 gpr_once g_factory_once = GPR_ONCE_INIT;
 
 void FactoryInit() {
-  g_factory = new grpc_core::Chttp2InsecureClientChannelFactory();
+  g_factory = grpc_core::new_global_static<grpc_core::Chttp2InsecureClientChannelFactory>();
 }
 
 }  // namespace

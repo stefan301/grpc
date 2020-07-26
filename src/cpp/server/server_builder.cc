@@ -29,6 +29,7 @@
 #include "src/core/lib/channel/channel_args.h"
 #include "src/core/lib/gpr/string.h"
 #include "src/core/lib/gpr/useful.h"
+#include "src/core/lib/surface/allocate_global_statics.h"
 #include "src/cpp/server/external_connection_acceptor_impl.h"
 #include "src/cpp/server/thread_pool_interface.h"
 
@@ -40,7 +41,7 @@ static gpr_once once_init_plugin_list = GPR_ONCE_INIT;
 
 static void do_plugin_list_init(void) {
   g_plugin_factory_list =
-      new std::vector<std::unique_ptr<ServerBuilderPlugin> (*)()>();
+      grpc_core::new_global_static<std::vector<std::unique_ptr<ServerBuilderPlugin> (*)()>>();
 }
 
 ServerBuilder::ServerBuilder()

@@ -43,6 +43,7 @@
 #include "src/core/lib/iomgr/timer_manager.h"
 #include "src/core/lib/profiling/timers.h"
 #include "src/core/lib/slice/slice_internal.h"
+#include "src/core/lib/surface/allocate_global_statics.h"
 #include "src/core/lib/surface/api_trace.h"
 #include "src/core/lib/surface/call.h"
 #include "src/core/lib/surface/channel_init.h"
@@ -68,7 +69,7 @@ static bool g_shutting_down;
 static void do_basic_init(void) {
   gpr_log_verbosity_init();
   gpr_mu_init(&g_init_mu);
-  g_shutting_down_cv = static_cast<gpr_cv*>(malloc(sizeof(gpr_cv)));
+  g_shutting_down_cv = static_cast<gpr_cv*>(grpc_core::malloc_global_static(sizeof(gpr_cv)));
   gpr_cv_init(g_shutting_down_cv);
   g_shutting_down = false;
   grpc_register_built_in_plugins();
